@@ -26,13 +26,13 @@ containers:
       "-e", "GCS_BUCKET=pollux-tinfoil",
       "-e", "POLLUX_LN_GCS_BUCKET=gs://pollux-tinfoil",
       "-e", "POLLUX_GCSFUSE_MOUNT_PATH=/mnt/gcs",
-      "-e", "STAGING_DATABASE_URL=$(awk -F': *' '$1~/^staging-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
-      "-e", "DEV_DATABASE_URL=$(awk -F': *' '$1~/^dev-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "STAGING_DATABASE_URL=$(sed -n 's/^staging-database-url: *//p' /mnt/ramdisk/external-config.yml)",
+      "-e", "DEV_DATABASE_URL=$(sed -n 's/^dev-database-url: *//p' /mnt/ramdisk/external-config.yml)",
       "-e", "GOOGLE_CLIENT_ID=$(awk -F': *' '$1~/^google-client-id$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "GOOGLE_CLIENT_SECRET=$(awk -F': *' '$1~/^google-client-secret$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "LOG_LEVEL=INFO",
       "us-central1-docker.pkg.dev/workshop-labs-pbc/pollux-docker/cpu:latest",
-      "--staging"   # swap to --dev in a dev-specific config
+      "--staging"
     ]
 
 shim:
