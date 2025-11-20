@@ -1,0 +1,27 @@
+shim-version: v0.2.10@sha256:f9040a48106ab06c290fd9b225d4dd53a2daad715c9107594d4310b21592039f
+cvm-version: 0.5.7
+cpus: 16
+memory: 65536
+vllm: false
+
+containers:
+  - name: "sync"
+    image: ""
+    args: [
+      "-e", "STAGING_DATABASE_URL=$(awk -F': *' '$1~/^staging-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "DEV_DATABASE_URL=$(awk -F': *' '$1~/^dev-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "LOCAL_DEV_DATABASE_URL=$(awk -F': *' '$1~/^local-dev-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "GOOGLE_CLIENT_ID=$(awk -F': *' '$1~/^google-client-id$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "GOOGLE_CLIENT_SECRET=$(awk -F': *' '$1~/^google-client-secret$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
+      "-e", "LOG_LEVEL=INFO",
+      "us-central1-docker.pkg.dev/workshop-labs-pbc/pollux-docker/cpu:latest",
+      "--staging"   # swap to --dev in a dev-specific config
+    ]
+
+shim:
+  listen-port: 443
+  upstream-port: 8000
+  publish-attestation: false
+  tls-challenge: dns
+  paths:
+    - /ping
