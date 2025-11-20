@@ -10,7 +10,6 @@ containers:
     args: [
       "-e", "STAGING_DATABASE_URL=$(awk -F': *' '$1~/^staging-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "DEV_DATABASE_URL=$(awk -F': *' '$1~/^dev-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
-      "-e", "LOCAL_DEV_DATABASE_URL=$(awk -F': *' '$1~/^local-dev-database-url$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "GOOGLE_CLIENT_ID=$(awk -F': *' '$1~/^google-client-id$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "GOOGLE_CLIENT_SECRET=$(awk -F': *' '$1~/^google-client-secret$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "LOG_LEVEL=INFO",
