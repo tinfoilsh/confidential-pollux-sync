@@ -20,10 +20,11 @@ containers:
   - name: "sync"
     image: ""
     args: [
-      "-v", "/mnt/ramdisk/gcs-bucket:/mnt/gcs:ro",
+      "-v", "/mnt/ramdisk/gcs-bucket:/mnt/gcs",
       "-v", "/mnt/ramdisk/gcloud_key.json:/key.json:ro",
       "-e", "GOOGLE_APPLICATION_CREDENTIALS=/key.json",
       "-e", "GCS_BUCKET=pollux-tinfoil",
+      "-e", "GCS_ACCESS=read-only",
       "-e", "POLLUX_LN_GCS_BUCKET=gs://pollux-tinfoil",
       "-e", "POLLUX_GCSFUSE_MOUNT_PATH=/mnt/gcs",
       "-e", "STAGING_DATABASE_URL=$(sed -n 's/^staging-database-url: *//p' /mnt/ramdisk/external-config.yml)",
