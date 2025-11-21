@@ -32,7 +32,7 @@ containers:
       "-e", "GOOGLE_CLIENT_ID=$(awk -F': *' '$1~/^google-client-id$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "GOOGLE_CLIENT_SECRET=$(awk -F': *' '$1~/^google-client-secret$/{print $2; exit}' /mnt/ramdisk/external-config.yml)",
       "-e", "LOG_LEVEL=INFO",
-      "us-central1-docker.pkg.dev/workshop-labs-pbc/pollux-docker/cpu:afd8afc",
+      "us-central1-docker.pkg.dev/workshop-labs-pbc/pollux-docker/cpu@sha256:b7e2d40120fb8846411da49d09c1cbf2f0e1127e8d87e30e30a13be32f8f51a8",
       "--staging"
     ]
 
